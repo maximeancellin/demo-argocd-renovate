@@ -2,8 +2,6 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: system
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
   labels:
     name: system
     flow: gitops
@@ -21,5 +19,11 @@ spec:
 
   destination:
     name: in-cluster
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
 
   revisionHistoryLimit: 10
