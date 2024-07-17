@@ -19,6 +19,7 @@ spec:
 
   destination:
     name: in-cluster
+    namespace: staging
 
   syncPolicy:
     automated:
