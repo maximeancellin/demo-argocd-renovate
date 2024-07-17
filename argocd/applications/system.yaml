@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: system
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: system
+    flow: gitops
+spec:
+  project: gitops-system
+
+  source:
+    repoURL: https://github.com/maximeancellin/demo-argocd-renovate.git
+    targetRevision: main
+    path: cluster/system
+
+    directory:
+      recurse: true
+      include: "*.yaml"
+
+  destination:
+    name: in-cluster
+
+  revisionHistoryLimit: 10
