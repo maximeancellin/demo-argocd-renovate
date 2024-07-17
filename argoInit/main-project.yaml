@@ -1,0 +1,22 @@
+apiVersion: v1
+items:
+  - apiVersion: argoproj.io/v1alpha1
+    kind: AppProject
+    metadata:
+      name: gitops-main
+      namespace: argocd
+    spec:
+      clusterResourceWhitelist: []
+      namespaceResourceWhitelist:
+        - group: "argoproj.io"
+          kind: "Application"
+        - group: "argoproj.io"
+          kind: "ApplicationSets"
+        - group: "argoproj.io"
+          kind: "AppProject"
+      destinations:
+        - namespace: "argocd"
+          server: "*"
+      sourceRepos:
+        - "https://github.com/maximeancellin/demo-argocd-renovate.git"
+kind: List

@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: main
+  labels:
+    name: main
+    flow: gitops
+spec:
+  project: gitops-main
+
+  source:
+    repoURL: https://github.com/maximeancellin/demo-argocd-renovate.git
+    targetRevision: main
+    path: argocd
+
+    directory:
+      recurse: true
+      include: "*.yaml"
+
+  destination:
+    name: in-cluster
+    namespace: argocd
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+      allowEmpty: true
+
+  revisionHistoryLimit: 10
