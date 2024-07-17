@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: production
+  labels:
+    name: production
+    flow: gitops
+spec:
+  project: gitops-production
+
+  source:
+    repoURL: https://github.com/maximeancellin/demo-argocd-renovate.git
+    targetRevision: main
+    path: cluster/production
+
+    directory:
+      recurse: true
+      include: "*.yaml"
+
+  destination:
+    name: in-cluster
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+
+  revisionHistoryLimit: 10

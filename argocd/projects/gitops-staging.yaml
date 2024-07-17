@@ -1,0 +1,17 @@
+apiVersion: v1
+items:
+  - apiVersion: argoproj.io/v1alpha1
+    kind: AppProject
+    metadata:
+      name: gitops-staging
+      namespace: argocd
+    spec:
+      clusterResourceWhitelist:
+        - group: "*"
+          kind: "*"
+      destinations:
+        - namespace: "staging"
+          server: "*"
+      sourceRepos:
+        - "*"
+kind: List
